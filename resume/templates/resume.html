@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{{ current_user.username }} Resume</title>
+
+<meta name="viewport" content="width=device-width"/>
+<meta name="description" content="The Curriculum Vitae of Joe Bloggs."/>
+<meta charset="UTF-8"> 
+
+<link type="text/css" rel="stylesheet" href="../static/resume.css">
+<link href='http://fonts.googleapis.com/css?family=Rokkitt:400,700|Lato:400,300' rel='stylesheet' type='text/css'>
+
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+</head>
+<body id="top">
+	
+
+<div id="cv" class="instaFade">
+	<div class="mainDetails">
+		<div id="headshot" class="quickFade">
+			<img src="{{ image_file }}" alt="{{ usr.name }}" />
+		</div>
+		
+		<div id="name">
+			<h1 class="quickFade delayTwo">{{ usr.name }}</h1>
+			 <h2 class="quickFade delayThree"> {{  usr.designation }} </h2>  
+		</div>
+		
+		<div id="contactDetails" class="quickFade delayFour">
+			<ul>
+				<li>e: <a href="#" target="_blank"> {{ usr.email }}</a></li>
+				
+				<li>m: {{ usr.phoneno }}</li>
+			</ul>
+		</div>
+		<div class="clear"></div>
+	</div>
+	
+	<div id="mainArea" class="quickFade delayFive">
+		<section>
+			<article>
+				<div class="sectionTitle">
+					<h1>Personal Profile</h1>
+				</div>
+				
+				<div class="sectionContent">
+					<p> {{ usr.profile }}</p>
+				</div>
+			</article>
+			<div class="clear"></div>
+		</section>
+	
+		<section>
+			<div class="sectionTitle">
+				<h1>Education</h1>
+			</div>
+			
+			<div class="sectionContent">
+
+				{% for education in edu %}
+				<article>
+					<h2>{{ education.name }}</h2>
+					<p class="subDetails">Student</p>
+					<p class="subDetails"> {{ education.start }} - {{ education.end }}</p>
+					<h3>CGPA - {{ education.cgpa }}</h3>
+				</article>
+			
+				{% endfor %}
+				
+			</div>
+			<div class="clear"></div>
+		</section>
+		
+		
+		<section>
+			<div class="sectionTitle">
+				<h1>Work Experience</h1>
+			</div>
+			
+			<div class="sectionContent">
+				{%  for experience in exp %}
+				<article>
+					<h2>{{ experience.company }}</h2>
+					<p class="subDetails">{{ experience.startexp }} - {{ experience.endexp }}</p>
+					<p>{{ experience.content }}</p>
+				</article>
+				{% endfor %}
+			
+				
+			</div>
+			
+			<div class="clear"></div>
+		</section>
+		
+		
+		<section>
+			<div class="sectionTitle">
+				<h1>Key Skills</h1>
+			</div>
+			
+			<div class="sectionContent">
+				<ul class="keySkills">
+					{% for skills in sk %}
+					<li>{{  skills.skillname }}</li>
+					{% endfor %}
+				</ul>
+			</div>
+			<div class="clear"></div>
+		</section>
+
+		<section>
+			<div class="sectionTitle">
+					<h1>Projects</h1>
+			</div>
+
+			<div class="sectionContent">
+				{% for project in pro %}
+				<article>
+					<h2>{{ project.projectname }}</h2>
+					<p class="subDetails">{{ project.startpro }} - {{ project.endpro }} </p>
+					<p>{{ project.description }}</p>
+					<p>{{ project.url }}</p>
+				</article>
+
+				{% endfor %}
+			</div>
+			<div class="clear"></div>
+		</section>
+
+
+
+		<section>
+			<div class="sectionTitle">
+					<h1>Acheivements</h1>
+			</div>
+
+			<div class="sectionContent">
+				{% for acheive in achmade %}
+				<article>
+					<h2>{{ acheive.achname }}</h2>
+					<p>{{ acheive.achdesc }}</p>
+			
+				</article>
+
+				{% endfor %}
+			</div>
+			<div class="clear"></div>
+		</section>
+		
+		
+		
+
+		
+		
+	</div>
+</div>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-3753241-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+</body>
+</html>

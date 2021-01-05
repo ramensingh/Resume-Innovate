@@ -1,0 +1,108 @@
+{% extends "layout.html" %} {% block content %}
+
+
+<div class="content-section">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group" id="cloneunder">
+            <legend class="border-bottom mb-4">Make Resume</legend>
+            <h1>Projects</h1>
+            <div id="skillclass">
+
+                <div class="form-group">
+                    {{ form.projectname.label(class="form-control-label") }} {% if form.projectname.errors %} {{ form.projectname(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.projectname.errors %}
+                        <span>{{error}}</span> {% endfor %}
+                    </div>
+                    {% else %} {{ form.projectname(class="form-control form-control-lg") }} {% endif %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.startpro.label(class="form-control-label") }} {% if form.startpro.errors %} {{ form.startpro(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.startpro.errors %}
+                        <span>{{error}}</span> {% endfor %}
+                    </div>
+                    {% else %} {{ form.startpro(class="form-control form-control-lg") }} {% endif %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.endpro.label(class="form-control-label") }} {% if form.endpro.errors %} {{ form.endpro(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.endpro.errors %}
+                        <span>{{error}}</span> {% endfor %}
+                    </div>
+                    {% else %} {{ form.endpro(class="form-control form-control-lg") }} {% endif %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.description.label(class="form-control-label") }} {% if form.description.errors %} {{ form.description(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.description.errors %}
+                        <span>{{error}}</span> {% endfor %}
+                    </div>
+                    {% else %} {{ form.description(class="form-control form-control-lg") }} {% endif %}
+                </div>
+
+
+                <div class="form-group">
+                    {{ form.url.label(class="form-control-label") }} {% if form.url.errors %} {{ form.url(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.url.errors %}
+                        <span>{{error}}</span> {% endfor %}
+                    </div>
+                    {% else %} {{ form.url(class="form-control form-control-lg") }} {% endif %}
+                </div>
+            </div>
+
+        </fieldset>
+        <a href="/resume/new/skills" class="btn btn-primary" style="float: right;">Go to Skills</a>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary" ) }}
+        </div>
+    </form>
+
+
+</div>
+
+{% if proadded and title == "Projects" %}
+<div class="content-section">
+    <h4>Projects Added</h4>
+
+    {% for project in proadded %}
+    <article>
+        <h2>{{ project.projectname }}</h2>
+        <p class="subDetails">{{ project.startpro }} - {{ project.endpro }} </p>
+        <p>{{ project.description }}</p>
+        <p>{{ project.url }}</p>
+    </article>
+    <div>
+        <a class="btn btn-primary btn-sm mt-1 mb-1" href="{{ url_for('update_pro', project_id=project.id) }}">Update</a>
+        <button type="button" class="btn btn-primary btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Delete Post?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    <form action="{{ url_for('delete_pro', project_id=project.id) }}" method="POST">
+                        <input class="btn btn-primary" type="submit" value="Delete">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endfor %}
+
+
+</div>
+{% endif %} {% endblock content %}
